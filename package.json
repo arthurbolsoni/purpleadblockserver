@@ -1,6 +1,6 @@
 {
   "name": "purple-adblock-server",
-  "version": "2.5",
+  "version": "2.5.0",
   "description": "proxy to be server for Twitch stream requests",
   "author": "kingarthur",
   "license": "GPL-3.0",
@@ -20,6 +20,7 @@
     "test:e2e": "jest --config ./test/jest-e2e.json"
   },
   "dependencies": {
+    "@fastify/cors": "^8.1.0",
     "@fastify/csrf-protection": "^6.0.0",
     "@fastify/helmet": "^10.0.1",
     "@nestjs/axios": "^0.1.0",
