@@ -18,8 +18,8 @@ async function bootstrap() {
     origin: "*",
   });
 
-  // await app.register(helmet, { contentSecurityPolicy: false });
-  // await app.register(fastifyCsrf);
-  await app.listen(80);
+  await app.register(helmet, { contentSecurityPolicy: false });
+  await app.register(fastifyCsrf);
+  await app.listen(80, "0.0.0.0");
 }
 bootstrap();
