@@ -11,15 +11,15 @@ import { AppModule } from './app.module';
 async function bootstrap() {
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,
-    new FastifyAdapter({ logger: true })
+    new FastifyAdapter({ logger: true }),
   );
-  
+
   app.register(cors, {
-    origin: "*",
+    origin: '*',
   });
 
   await app.register(helmet, { contentSecurityPolicy: false });
   await app.register(fastifyCsrf);
-  await app.listen(80, "0.0.0.0");
+  await app.listen(80, '0.0.0.0');
 }
 bootstrap();
