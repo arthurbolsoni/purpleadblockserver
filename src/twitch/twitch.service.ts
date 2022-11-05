@@ -55,7 +55,7 @@ export class TwitchService {
     return firstValueFrom(
       await this.httpService.get(url).pipe(
         catchError((e) => {
-          throw new HttpException("", e.response.status);
+          throw new HttpException("", 404);
         }),
         map((response) => response.data),
       ),
