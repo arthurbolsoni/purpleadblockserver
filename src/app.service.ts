@@ -5,7 +5,7 @@ import { TwitchService } from './twitch/twitch.service';
 export class AppService {
   constructor(private twitchService: TwitchService) {}
   getHello(): string {
-    return 'Hello World!';
+    return 'Hello World :)';
   }
 
   async getStream(channelName: string): Promise<string> {
