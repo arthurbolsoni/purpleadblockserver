@@ -26,7 +26,7 @@ export class TwitchService {
     };
 
     const headers = {
-      'Client-ID': this.API_CLIENT_ID,
+      'Client-ID': this.API_CLIENT_ID
     };
 
     return firstValueFrom(

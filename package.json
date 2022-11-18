@@ -1,6 +1,6 @@
 {
   "name": "purple-adblock-server",
-  "version": "2.5.0",
+  "version": "2.5.0.9",
   "description": "proxy to be server for Twitch stream requests",
   "author": "kingarthur",
   "license": "GPL-3.0",
