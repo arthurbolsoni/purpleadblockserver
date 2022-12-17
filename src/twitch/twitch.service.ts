@@ -62,6 +62,18 @@ export class TwitchService {
     );
   }
 
+  async HLSWatch(url: string): Promise<boolean> {
+    return firstValueFrom(
+      await this.httpService.get(url).pipe(
+        catchError((e) => {
+          throw new NotFoundException();
+        }),
+        map((response) => response.data),
+      ),
+    ) ? true : false;
+
+  }
+
   async HLSRequest(serverName: string, id: string): Promise<string> {
     console.log();
     return firstValueFrom(
