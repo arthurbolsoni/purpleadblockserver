@@ -25,8 +25,7 @@ export class AppService {
 
     let captureArray: RegExpExecArray | null = REGEX.exec(dataFlow);
     const a = await this.twitchService.HLSWatch(captureArray[2])
-    
-    console.log(a)
+    const b = await this.twitchService.HLSWatch(captureArray[2])
 
     return dataFlow;
   }
