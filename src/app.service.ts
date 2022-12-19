@@ -21,11 +21,10 @@ export class AppService {
       dataAccess.data.streamPlaybackAccessToken.signature,
     );
 
-    const REGEX = /NAME="((?:\S+\s+\S+|\S+))",AUTO(?:^|\S+\s+)(?:^|\S+\s+)(https:\/\/video(\S+).m3u8)/g;
+    // const REGEX = /NAME="((?:\S+\s+\S+|\S+))",AUTO(?:^|\S+\s+)(?:^|\S+\s+)(https:\/\/video(\S+).m3u8)/g;
 
-    let captureArray: RegExpExecArray | null = REGEX.exec(dataFlow);
-    const a = await this.twitchService.HLSWatch(captureArray[2])
-    const b = await this.twitchService.HLSWatch(captureArray[2])
+    // let captureArray: RegExpExecArray | null = REGEX.exec(dataFlow);
+    // const a = await this.twitchService.HLSWatch(captureArray[2])
 
     return dataFlow;
   }
