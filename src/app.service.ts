@@ -8,7 +8,7 @@ export class AppService {
     return 'Hello World :)';
   }
 
-  async getStream(channelName: string): Promise<string> {
+  async getStream(channelName: string, resolver: boolean = true): Promise<string> {
     const dataAccess = await this.twitchService.playBackAccessToken(
       channelName,
     );
@@ -24,9 +24,11 @@ export class AppService {
     const REGEX = /NAME="((?:\S+\s+\S+|\S+))",AUTO(?:^|\S+\s+)(?:^|\S+\s+)(https:\/\/video(\S+).m3u8)/g;
 
     let captureArray: RegExpExecArray | null = REGEX.exec(dataFlow);
-    const a = await this.twitchService.HLSWatch(captureArray[2])
-    const b = await this.twitchService.HLSWatch(captureArray[2])
+    const a = await this.twitchService.HLSWatch(captureArray[2])  
 
+    const ads = a.toString().includes("stitched");
+    console.log(ads);
+    if (ads && resolver) return this.getStream(channelName, resolver = false);
     return dataFlow;
   }
 

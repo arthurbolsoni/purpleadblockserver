@@ -6,7 +6,7 @@ import { TwitchService } from './twitch.service';
   imports: [
     HttpModule.registerAsync({
       useFactory: () => ({
-        timeout: 15000,
+        timeout: 60000,
         maxRedirects: 0,
       }),
     }),
