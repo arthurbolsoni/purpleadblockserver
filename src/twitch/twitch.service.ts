@@ -68,7 +68,7 @@ export class TwitchService {
 
     return firstValueFrom(
       this.httpService
-        .post(this.API_URL, query, { headers: headers })
+        .post(this.API_URL, data, { headers: headers })
         .pipe(map((response) => response.data)),
     );
   }
