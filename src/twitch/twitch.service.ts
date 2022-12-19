@@ -8,7 +8,7 @@ import { flowRequest } from './types/variables.types';
 
 @Injectable()
 export class TwitchService {
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   private API_URL = 'https://gql.twitch.tv/gql';
   private API_CLIENT_ID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
@@ -68,7 +68,7 @@ export class TwitchService {
 
     return firstValueFrom(
       this.httpService
-        .post(this.API_URL, data, { headers: headers })
+        .post(this.API_URL, query, { headers: headers })
         .pipe(map((response) => response.data)),
     );
   }
@@ -113,10 +113,10 @@ export class TwitchService {
       await this.httpService
         .get(
           'https://video-weaver.' +
-            serverName.slice(0, 5) +
-            '.hls.ttvnw.net/v1/playlist/' +
-            id +
-            '.m3u8',
+          serverName.slice(0, 5) +
+          '.hls.ttvnw.net/v1/playlist/' +
+          id +
+          '.m3u8',
         )
         .pipe(
           catchError((e) => {

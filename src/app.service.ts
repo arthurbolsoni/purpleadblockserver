@@ -8,7 +8,7 @@ export class AppService {
     return 'Hello World :)';
   }
 
-  async getStream(channelName: string): Promise<string> {
+  async getStream(channelName: string, resolver: boolean = true): Promise<string> {
     const dataAccess = await this.twitchService.playBackAccessToken(
       channelName,
     );
@@ -25,7 +25,7 @@ export class AppService {
 
     // let captureArray: RegExpExecArray | null = REGEX.exec(dataFlow);
     // const a = await this.twitchService.HLSWatch(captureArray[2])
-
+    
     return dataFlow;
   }
 
