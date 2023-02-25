@@ -15,8 +15,8 @@ export class AppController {
     return this.appService.getStream(channel.channel);
   }
 
-  @Get('hls/v2/sig/:serverName/:id')
-  firstHLSRequest(@Param() param: any) {
-    return this.appService.firstHLSRequest(param.serverName, param.id);
-  }
+  // @Get('hls/v2/sig/:serverName/:id')
+  // firstHLSRequest(@Param() param: any) {
+  //   return this.appService.firstHLSRequest(param.serverName, param.id);
+  // }
 }
