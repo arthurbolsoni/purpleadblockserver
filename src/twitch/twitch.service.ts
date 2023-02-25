@@ -4,11 +4,10 @@ import { firstValueFrom } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { gqlResponse } from './types/gqlResponse.types';
 import { accessTokenOptions } from './types/hlsRequest.types';
-import { flowRequest } from './types/variables.types';
 
 @Injectable()
 export class TwitchService {
-  constructor(private httpService: HttpService) {}
+  constructor(private httpService: HttpService) { }
 
   private API_URL = 'https://gql.twitch.tv/gql';
   private API_CLIENT_ID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
@@ -25,8 +24,23 @@ export class TwitchService {
       query: query,
     };
 
+    //random device id
+    const deviceId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+
     const headers = {
-      'Client-ID': this.API_CLIENT_ID
+      'Client-ID': this.API_CLIENT_ID,
+      'Device-ID': deviceId,
+      'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:109.0) Gecko/20100101 Firefox/110.0',
+      'Accept': '*/*',
+      'Accept-Language': 'en-US',
+      'Accept-Encoding': 'gzip, deflate, br',
+      'Referer': 'https://www.twitch.tv/',
+      'Content-Type': 'text/plain; charset=UTF-8',
+      'Origin': 'https://www.twitch.tv',
+      'Connection': 'keep-alive',
+      'Sec-Fetch-Dest': 'empty',
+      'Sec-Fetch-Mode': 'cors',
+      'Sec-Fetch-Site': 'same-site',
     };
 
     return firstValueFrom(
@@ -40,7 +54,6 @@ export class TwitchService {
     login: string,
     token: string,
     signature: string,
-    options: flowRequest = new flowRequest(),
   ): Promise<string> {
     const url =
       'https://usher.ttvnw.net/api/channel/hls/' +
@@ -80,10 +93,10 @@ export class TwitchService {
       await this.httpService
         .get(
           'https://video-weaver.' +
-            serverName.slice(0, 5) +
-            '.hls.ttvnw.net/v1/playlist/' +
-            id +
-            '.m3u8',
+          serverName.slice(0, 5) +
+          '.hls.ttvnw.net/v1/playlist/' +
+          id +
+          '.m3u8',
         )
         .pipe(
           catchError((e) => {
