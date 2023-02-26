@@ -12,6 +12,17 @@ export class TwitchService {
   private API_URL = 'https://gql.twitch.tv/gql';
   private API_CLIENT_ID = 'kimne78kx3ncx6brgo4mv6wki5h1ko';
 
+  generateToken(length: number): string {
+    const characters = 'abcdef0123456789';
+    let token = '';
+    for (let i = 0; i < length; i++) {
+      const randomIndex = Math.floor(Math.random() * characters.length);
+      const randomCharacter = characters.charAt(randomIndex);
+      token += randomCharacter;
+    }
+    return token;
+  }
+
   playBackAccessToken(
     login: string,
     options: accessTokenOptions = new accessTokenOptions(),
@@ -58,9 +69,12 @@ export class TwitchService {
     const url =
       'https://usher.ttvnw.net/api/channel/hls/' +
       login +
-      '.m3u8?allow_source=true&fast_bread=true&p=' +
-      Math.floor(Math.random() * 1e7) +
-      '&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=false&sig=' +
+      '.m3u8?allow_source=true&fast_bread=true' +
+      '&p=' + Math.floor(Math.random() * 1e7) +
+      '&play_session_id=' + this.generateToken(32) +
+      '&cdm=wv' +
+      '&player_version=1.17.0' +
+      '&player_backend=mediaplayer&playlist_include_framerate=true&reassignments_supported=true&sig=' +
       signature +
       '&supported_codecs=avc1&token=' +
       token;
