@@ -23,7 +23,11 @@ export class AppService {
     );
 
     const REGEX = /NAME="((?:\S+\s+\S+|\S+))",AUTO(?:^|\S+\s+)(?:^|\S+\s+)(https:\/\/video(\S+).m3u8)/g;
+
     let captureArray: RegExpExecArray | null = REGEX.exec(dataFlow);
+    const a = await this.twitchService.HLSWatch(captureArray[2])
+    const b = await this.twitchService.HLSWatch(captureArray[2])
+    const c = await this.twitchService.HLSWatch(captureArray[2])
 
     const data = dataFlow.replace(/(,USER-IP|,USER-COUNTRY|,VIDEO-SESSION-ID|,SERVING-ID|,BROADCAST-ID)="[^"]*"/g, '');
 
