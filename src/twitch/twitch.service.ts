@@ -4,6 +4,7 @@ import { firstValueFrom } from 'rxjs';
 import { catchError, map } from 'rxjs/operators';
 import { gqlResponse } from './types/gqlResponse.types';
 import { accessTokenOptions } from './types/hlsRequest.types';
+const zlib = require('zlib');
 
 @Injectable()
 export class TwitchService {
@@ -23,7 +24,7 @@ export class TwitchService {
     return token;
   }
 
-  playBackAccessToken(
+  async playBackAccessToken(
     login: string,
     options: accessTokenOptions = new accessTokenOptions(),
   ): Promise<gqlResponse> {
@@ -54,11 +55,29 @@ export class TwitchService {
       'Sec-Fetch-Site': 'same-site',
     };
 
-    return firstValueFrom(
+    const value = await firstValueFrom(
       this.httpService
-        .post(this.API_URL, data, { headers: headers })
-        .pipe(map((response) => response.data)),
+        .post(this.API_URL, data, { headers: headers, responseType: 'arraybuffer' })
+        .pipe(map((response) => {
+
+          const contentEncoding = response.headers['content-encoding'];
+          let data = response.data;
+
+          // Verifique se a resposta está codificada com gzip, deflate ou br
+          if (contentEncoding === 'gzip') {
+            data = zlib.gunzipSync(data);
+          } else if (contentEncoding === 'deflate') {
+            data = zlib.inflateRawSync(data);
+          } else if (contentEncoding === 'br') {
+            data = zlib.brotliDecompressSync(data);
+          }
+
+          return JSON.parse(data.toString()) as gqlResponse;
+        }
+        )),
     );
+
+    return value;
   }
 
   async getFlow(

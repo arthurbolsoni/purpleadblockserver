@@ -12,6 +12,7 @@ export class AppService {
     const dataAccess = await this.twitchService.playBackAccessToken(
       channelName,
     );
+    
     if (!dataAccess.data.streamPlaybackAccessToken)
       throw new NotFoundException();
 
